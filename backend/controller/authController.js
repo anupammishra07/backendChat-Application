@@ -20,13 +20,13 @@ module.exports.userRegister = (req, res) => {
      const error = [];
 
      if(!userName){
-          error.push('Please provide your user name');
+          error.push('Enter user name');
      }
      if(!email){
-          error.push('Please provide your Email');
+          error.push('Email can not be empty');
      }
      if(email && !validator.isEmail(email)){
-          error.push('Please provide your Valid Email');
+          error.push('Enter Valid Email');
      }
      if(!password){
           error.push('Please provide your Password');
@@ -35,10 +35,10 @@ module.exports.userRegister = (req, res) => {
           error.push('Please provide your confirm Password');
      }
      if(password && confirmPassword && password !== confirmPassword){
-          error.push('Your Password and Confirm Password not same');
+          error.push('Password not matched');
      }
      if(password && password.length < 6){
-          error.push('Please provide password mush be 6 charecter');
+          error.push('Please provide password mush be 6 character');
      }
      if(Object.keys(files).length === 0){
           error.push('Please provide user image');
@@ -64,7 +64,7 @@ module.exports.userRegister = (req, res) => {
           if(checkUser) {
                res.status(404).json({
                     error: {
-                         errorMessage : ['Your email already exited']
+                         errorMessage : ['Your email already existed']
                     }
                })
           }else{
@@ -167,14 +167,14 @@ module.exports.userLogin = async (req,res) => {
                     } else{
                          res.status(400).json({
                               error: {
-                                   errorMessage : ['Your Password not Valid']
+                                   errorMessage : ['Your Password is not Valid']
                               }
                          })
                     }
                } else{
                     res.status(400).json({
                          error: {
-                              errorMessage : ['Your Email Not Found']
+                              errorMessage : ['User not found']
                          }
                     })
                }
