@@ -7,11 +7,11 @@ const messageSchema = new Schema({
      },
      senderName : {
           type: String,
-          required : true
+          // required : true
      },
      reseverId : {
           type: String,
-          required : true          
+          // required : true          
      },
      message : {
           text : {
@@ -21,7 +21,11 @@ const messageSchema = new Schema({
           image : {
                type : String,
                default : ''
-          }           
+          } ,
+          file:{
+               type : String,
+               default : '' 
+          }          
      },
      status :{
           type : String,

@@ -238,3 +238,53 @@ module.exports.delivaredMessage = async (req,res) => {
           })
      })
 }
+
+
+
+module.exports.shareDocuments=async(req,res,next)=>{
+     try {
+          const senderId = req.myId;
+          console.log(senderId)
+         const userData = await User.findById(senderId)
+          const files= req.file;
+         
+          let name = Date.now() + files.originalname
+          console.log("succussful");
+          const insertMessage = await messageModel.create({
+               senderId : senderId,
+               senderName : userData.userName ,
+               reseverId : req.body.reseverId,
+               message : {
+                    text: '',
+                    file :name
+               }
+          })
+          res.status(201).json({
+               success : true,
+               message: insertMessage
+          })
+
+     } catch (error) {
+          console.log(error)
+     }
+};
+
+module.exports.deleteMessage=async(req,res,next)=>{
+     
+          const messageId=req.params.id;
+          const messageData= await messageModel.findByIdAndRemove(messageId)
+          .then(() => {
+               res.status(200).json({
+                    success : true,
+                    message:"message deleted succussfully"
+               })
+          }).catch(() => {
+               res.status(500).json({
+                    error : {
+                         errorMessage : 'Internal Server Error'
+                    }
+               })
+          })
+
+     
+}
